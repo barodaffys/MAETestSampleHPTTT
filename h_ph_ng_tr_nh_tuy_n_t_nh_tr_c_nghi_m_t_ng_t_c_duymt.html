@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trắc nghiệm Tương tác: Hệ Phương Trình Tuyến Tính - Phong cách Sư phạm DUYMT</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <!-- MathJax JS -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    h1, h2, h3, .font-title {
+      font-family: 'Lexend', sans-serif;
+    }
+    .font-mono-tech {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-indigo-100 selection:text-indigo-900">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-100 sticky top-0 z-40 shadow-sm backdrop-blur-md bg-white/90">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-200">
+          <i class="fa-solid fa-graduation-cap text-xl"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+            Đại Số Tuyến Tính <span class="text-xs font-semibold px-2 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100">DuyMT Method</span>
+          </h1>
+          <p class="text-xs text-slate-500 font-medium">Bản chất của các ràng buộc đồng thời & Hệ phương trình</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3 flex-wrap">
+        <button id="btn-download" class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-lg transition-colors shadow-sm shadow-emerald-100">
+          <i class="fa-solid fa-download"></i> Tải Đề Thi Về Máy
+        </button>
+        <div class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-semibold flex items-center gap-2 font-mono-tech">
+          <i class="fa-regular fa-clock text-indigo-600"></i>
+          <span id="timer">00:00:00</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Hero Panel -->
+  <section class="bg-slate-900 text-white py-12 px-4 border-b border-slate-800 relative overflow-hidden">
+    <!-- Abstract graphic pattern background -->
+    <div class="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+    <div class="absolute right-0 bottom-0 w-80 h-80 bg-indigo-500/20 blur-3xl rounded-full"></div>
+    <div class="absolute left-10 top-0 w-60 h-60 bg-emerald-500/10 blur-3xl rounded-full"></div>
+
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <p class="text-indigo-400 font-bold tracking-wider text-xs uppercase mb-3 font-mono-tech">Lớp Học Khai Phóng Tư Duy Toán Học</p>
+      <h2 class="text-2xl md:text-4xl font-extrabold mb-4 leading-tight tracking-tight">HỆ PHƯƠNG TRÌNH TUYẾN TÍNH</h2>
+      <p class="text-slate-300 max-w-2xl mx-auto text-sm md:text-base italic mb-6">
+        “Khi nhiều điều kiện cùng siết vào một ẩn, ta không chỉ giải bài toán - ta nhìn thấy cấu trúc giao nhau của các không gian.”
+      </p>
+      <div class="flex items-center justify-center gap-2 text-xs md:text-sm text-slate-400 font-medium">
+        <span class="px-2.5 py-1 bg-slate-800 rounded border border-slate-700 text-indigo-300">Dr.rer.nat Duymt</span>
+        <span>•</span>
+        <span>Dạy cấu trúc thay vì dạy công thức rời rạc</span>
+        <span>•</span>
+        <span>Deconstruction</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Dashboard -->
+  <div class="max-w-6xl mx-auto px-4 -mt-6 relative z-20 w-full">
+    <div class="bg-white rounded-xl shadow-xl border border-slate-200/80 p-5 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="p-3 bg-slate-50 rounded-lg border border-slate-100 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+          <i class="fa-solid fa-list-check text-lg"></i>
+        </div>
+        <div>
+          <div class="text-xs text-slate-400 font-medium">Tổng câu hỏi</div>
+          <div class="text-lg font-bold text-slate-900 font-mono-tech" id="stats-total">20 câu</div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-emerald-50 rounded-lg border border-emerald-100 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">
+          <i class="fa-solid fa-circle-check text-lg"></i>
+        </div>
+        <div>
+          <div class="text-xs text-emerald-600/75 font-medium">Trả lời đúng</div>
+          <div class="text-lg font-bold text-emerald-800 font-mono-tech" id="stats-correct">0/0</div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-rose-50 rounded-lg border border-rose-100 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-rose-100 flex items-center justify-center text-rose-600">
+          <i class="fa-solid fa-circle-xmark text-lg"></i>
+        </div>
+        <div>
+          <div class="text-xs text-rose-600/75 font-medium">Trả lời sai</div>
+          <div class="text-lg font-bold text-rose-800 font-mono-tech" id="stats-wrong">0/0</div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-sky-50 rounded-lg border border-sky-100 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-sky-100 flex items-center justify-center text-sky-600">
+          <i class="fa-solid fa-percent text-lg"></i>
+        </div>
+        <div>
+          <div class="text-xs text-sky-600/75 font-medium">Tỷ lệ chính xác</div>
+          <div class="text-lg font-bold text-sky-800 font-mono-tech" id="stats-accuracy">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Left column: Navigation list -->
+    <div class="lg:col-span-4 flex flex-col gap-4">
+      <div class="bg-white rounded-xl shadow-md border border-slate-200/60 p-4 sticky top-24">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+          <h3 class="font-bold text-slate-900 text-sm tracking-wide uppercase">Bản Đồ Câu Hỏi</h3>
+          <span class="text-xs text-slate-400 font-semibold font-mono-tech" id="progress-text">Đã làm 0/20</span>
+        </div>
+        
+        <!-- Progress bar -->
+        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-6">
+          <div id="progress-bar" class="bg-indigo-600 h-full w-0 transition-all duration-300"></div>
+        </div>
+
+        <!-- Question filter buttons -->
+        <div class="grid grid-cols-4 gap-1.5 mb-4 text-xs font-semibold text-center">
+          <button onclick="filterQuestions('all')" id="btn-filter-all" class="py-1 px-1.5 rounded bg-slate-900 text-white shadow-sm font-mono-tech border border-transparent">Tất cả</button>
+          <button onclick="filterQuestions('theory')" id="btn-filter-theory" class="py-1 px-1.5 rounded bg-slate-50 text-slate-600 hover:bg-slate-100 font-mono-tech border border-slate-200">Lý thuyết</button>
+          <button onclick="filterQuestions('easy')" id="btn-filter-easy" class="py-1 px-1.5 rounded bg-slate-50 text-slate-600 hover:bg-slate-100 font-mono-tech border border-slate-200">Dễ</button>
+          <button onclick="filterQuestions('medium')" id="btn-filter-medium" class="py-1 px-1.5 rounded bg-slate-50 text-slate-600 hover:bg-slate-100 font-mono-tech border border-slate-200">TB</button>
+          <button onclick="filterQuestions('hard')" id="btn-filter-hard" class="py-1 px-1.5 rounded bg-slate-50 text-slate-600 hover:bg-slate-100 font-mono-tech border border-slate-200 col-span-4 mt-1">Khó</button>
+        </div>
+
+        <!-- Question Grid -->
+        <div class="grid grid-cols-5 gap-2 max-h-[320px] overflow-y-auto pr-1" id="question-grid">
+          <!-- Dynamically filled with JS -->
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col gap-2">
+          <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
+            <span class="w-3.5 h-3.5 rounded bg-white border-2 border-slate-300 inline-block"></span>
+            Chưa làm
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
+            <span class="w-3.5 h-3.5 rounded bg-emerald-500 inline-block"></span>
+            Trả lời đúng
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
+            <span class="w-3.5 h-3.5 rounded bg-rose-500 inline-block"></span>
+            Trả lời sai
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button id="btn-reset" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm rounded-lg transition-colors flex items-center justify-center gap-2 border border-slate-200">
+            <i class="fa-solid fa-rotate-right"></i> Làm lại từ đầu
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column: Question presentation -->
+    <div class="lg:col-span-8 flex flex-col gap-6">
+      <!-- Question Card Container -->
+      <div class="bg-white rounded-2xl shadow-md border border-slate-200/70 p-6 md:p-8 transition-all duration-300" id="question-card">
+        <!-- Card Header with metadata -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
+          <div class="flex items-center gap-2.5">
+            <span class="px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold rounded-lg font-mono-tech" id="current-question-index">
+              CÂU 01
+            </span>
+            <span class="px-2.5 py-1 text-xs font-extrabold rounded-md uppercase" id="current-question-tag">
+              LÝ THUYẾT
+            </span>
+          </div>
+          <span class="text-xs text-slate-400 font-bold font-mono-tech" id="question-score-tag">
+            +5 Điểm
+          </span>
+        </div>
+
+        <!-- Question Title -->
+        <div class="text-slate-900 font-semibold text-base md:text-lg mb-6 leading-relaxed" id="question-text">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Answer Options -->
+        <div class="space-y-3.5" id="options-container">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Explanation Block (Initially Hidden) -->
+        <div class="mt-8 hidden space-y-4" id="explanation-block">
+          <div class="p-4 md:p-5 bg-emerald-50/60 border border-emerald-100 rounded-xl">
+            <h4 class="text-emerald-900 font-extrabold text-sm flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-lightbulb text-base"></i> ĐÁP ÁN ĐÚNG: <span id="correct-answer-letter">A</span>
+            </h4>
+            <div class="text-slate-700 text-sm leading-relaxed" id="explanation-text">
+              <!-- Explanation content -->
+            </div>
+          </div>
+
+          <div class="p-4 md:p-5 bg-indigo-50/50 border border-indigo-100 rounded-xl relative overflow-hidden">
+            <div class="absolute right-2 bottom-2 text-indigo-100/40 text-7xl font-extrabold pointer-events-none select-none font-mono-tech">
+              DuyMT
+            </div>
+            <h4 class="text-indigo-900 font-extrabold text-sm flex items-center gap-2 mb-2 relative z-10">
+              <i class="fa-solid fa-wand-magic-sparkles text-base text-indigo-600"></i> MẸO GIẢI NHANH TRẮC NGHIỆM
+            </h4>
+            <div class="text-slate-700 text-sm leading-relaxed italic relative z-10 font-medium" id="quick-tip-text">
+              <!-- Tip content -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Prev / Next Navigation -->
+        <div class="flex items-center justify-between mt-8 pt-6 border-t border-slate-100">
+          <button id="btn-prev" class="px-4 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-sm rounded-lg border border-slate-200 transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-chevron-left"></i> Câu Trước
+          </button>
+          
+          <span class="text-xs text-slate-400 font-semibold font-mono-tech" id="question-counter">
+            1 trong số 20
+          </span>
+
+          <button id="btn-next" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-lg shadow-sm shadow-indigo-100 transition-colors flex items-center gap-2">
+            Câu Tiếp <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Philosophy Card (DuyMT Pedagogy Showcase) -->
+      <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-6 md:p-8 shadow-lg relative overflow-hidden">
+        <div class="absolute right-0 top-0 w-48 h-48 bg-indigo-500/10 blur-2xl rounded-full"></div>
+        <h4 class="text-indigo-400 font-bold tracking-wider text-xs uppercase mb-3 font-mono-tech">Phương Pháp Sư Phạm DuyMT</h4>
+        <h3 class="text-lg md:text-xl font-bold mb-3">Tìm kiếm bản chất đằng sau vẻ bề ngoài</h3>
+        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+          Một bài toán trắc nghiệm Đại số tuyến tính không đơn thuần là phép bấm máy tính Casio hay tính toán bù đầu. Mỗi hệ phương trình là một bộ khung dệt ràng buộc; mỗi dòng biến đổi sơ cấp là một bước vén màn bí ẩn. Hãy nhìn nhận hệ số ma trận bằng con mắt hình học đa chiều.
+        </p>
+        <div class="flex items-center gap-4 text-xs font-semibold text-slate-400">
+          <span class="flex items-center gap-1"><i class="fa-solid fa-cube text-indigo-400"></i> Khử Gauss bảo toàn nghiệm</span>
+          <span class="flex items-center gap-1"><i class="fa-solid fa-layer-group text-emerald-400"></i> Hạng = Chiều độc lập</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-100 py-6 mt-12">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <p class="text-xs text-slate-400 font-semibold mb-2 font-mono-tech">ỨNG DỤNG TRẮC NGHIỆM ĐẠI SỐ TUYẾN TÍNH PHÁT TRIỂN THEO GIÁO TRÌNH DUYMT © 2026</p>
+      <p class="text-xs text-slate-400 max-w-lg mx-auto">Thiết kế tối ưu hiển thị MathJax, tương thích mọi kích cỡ màn hình thiết bị di động, máy tính bảng và máy tính xách tay.</p>
+    </div>
+  </footer>
+
+  <!-- Modal thông báo hoàn thành -->
+  <div id="modal-finish" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-md w-full p-6 md:p-8 text-center relative overflow-hidden">
+      <!-- Confetti decor -->
+      <div class="w-24 h-24 bg-emerald-500/10 rounded-full absolute -top-8 -left-8 blur-lg"></div>
+      <div class="w-32 h-32 bg-indigo-500/10 rounded-full absolute -bottom-10 -right-10 blur-xl"></div>
+      
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-md">
+        <i class="fa-solid fa-trophy animate-bounce"></i>
+      </div>
+      
+      <h3 class="text-2xl font-extrabold text-slate-900 mb-2">Chúc Mừng Bạn Đã Hoàn Thành!</h3>
+      <p class="text-slate-500 text-sm mb-6">Bạn đã đối mặt với 20 câu hỏi ràng buộc đồng thời cực kỳ cân não của thầy DuyMT.</p>
+      
+      <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <div class="text-xs text-slate-400 font-semibold">Tỉ lệ chính xác</div>
+          <div id="modal-accuracy" class="text-2xl font-black text-slate-900 font-mono-tech">0%</div>
+        </div>
+        <div>
+          <div class="text-xs text-slate-400 font-semibold">Số câu đúng</div>
+          <div id="modal-correct" class="text-2xl font-black text-emerald-600 font-mono-tech">0 / 20</div>
+        </div>
+        <div class="col-span-2 border-t border-slate-150 pt-2">
+          <div class="text-xs text-slate-400 font-semibold">Thời gian làm bài</div>
+          <div id="modal-time" class="text-lg font-bold text-indigo-600 font-mono-tech">00:00:00</div>
+        </div>
+      </div>
+      
+      <p id="modal-evaluation" class="text-slate-600 text-sm italic mb-6 px-2">
+        "Nghiệm là đối tượng sống sót sau khi tất cả ràng buộc đã nói chuyện xong với nhau."
+      </p>
+
+      <div class="flex flex-col gap-2">
+        <button onclick="closeModal()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-lg shadow-md shadow-indigo-100 transition-colors">
+          Xem lại chi tiết bài làm
+        </button>
+        <button onclick="restartExam()" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm rounded-lg transition-colors border border-slate-200">
+          Thử sức lại lần nữa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- DATABASE CÂU HỎI (20 câu: 5 Lý thuyết, 5 Dễ, 5 Trung bình, 5 Khó) ---
+    const questions = [
+      // === LÝ THUYẾT (5 CÂU) ===
+      {
+        id: 1,
+        type: "theory",
+        typeName: "Lý thuyết",
+        tagClass: "bg-purple-100 text-purple-800 border-purple-200",
+        score: 5,
+        text: "Theo triết lý sư phạm của thầy DuyMT, bản chất sâu xa của một hệ phương trình tuyến tính là gì?",
+        options: [
+          "Một đống các phương trình rời rạc được xếp ngẫu nhiên với nhau.",
+          "Một tập hợp các ràng buộc đồng thời đặt lên cùng một vector ẩn.",
+          "Một chuỗi thao tác bấm máy tính Casio để tìm ra số nghiệm x, y, z.",
+          "Một phép toán ma trận không có ý nghĩa biểu diễn hình học thực tế."
+        ],
+        correct: 1,
+        explanation: "Thầy DuyMT đã nhấn mạnh: 'Hệ phương trình tuyến tính không phải là một đống phương trình rời rạc. Nó là một cấu trúc ràng buộc đồng thời'. Mỗi một phương trình đóng vai trò như một màng lọc loại bỏ bớt các nghiệm không thích hợp, càng nhiều ràng buộc thì không gian nghiệm càng bị bóp lại.",
+        tip: "Hãy nhớ từ khóa 'Ràng buộc đồng thời'. Đọc đề không chỉ tìm số, hãy tìm cấu trúc ràng buộc."
+      },
+      {
+        id: 2,
+        type: "theory",
+        typeName: "Lý thuyết",
+        tagClass: "bg-purple-100 text-purple-800 border-purple-200",
+        score: 5,
+        text: "Trong không gian $n$ chiều $\\mathbb{R}^n$, tập hợp các điểm thỏa mãn một phương trình tuyến tính có dạng $a_1x_1 + a_2x_2 + \\dots + a_nx_n = b$ (với các hệ số không đồng thời bằng 0) biểu diễn đối tượng hình học nào?",
+        options: [
+          "Một đường thẳng trong mọi không gian $\\mathbb{R}^n$.",
+          "Một mặt cầu tâm $I(a_1, a_2, \\dots, a_n)$.",
+          "Một siêu phẳng (hyperplane) có số chiều là $n-1$.",
+          "Một không gian con tuyến tính có số chiều tùy ý."
+        ],
+        correct: 2,
+        explanation: "Trong $\\mathbb{R}^2$, phương trình biểu diễn một đường thẳng (siêu phẳng 1 chiều). Trong $\\mathbb{R}^3$, nó biểu diễn một mặt phẳng (siêu phẳng 2 chiều). Tổng quát, trong $\\mathbb{R}^n$, phương trình tuyến tính bậc nhất biểu diễn một siêu phẳng có chiều là $n-1$. Nghiệm của hệ là giao điểm của các siêu phẳng này.",
+        tip: "Phương trình bậc nhất luôn có đồ thị phẳng không cong, trong không gian $n$ chiều thì nó là một siêu phẳng (chiều $n-1$)."
+      },
+      {
+        id: 3,
+        type: "theory",
+        typeName: "Lý thuyết",
+        tagClass: "bg-purple-100 text-purple-800 border-purple-200",
+        score: 5,
+        text: "Vì sao các phép biến đổi sơ cấp trên hàng của ma trận mở rộng (như hoán vị hai hàng, nhân hàng với một số khác 0, cộng bội một hàng vào hàng khác) lại không làm thay đổi tập nghiệm của hệ phương trình tuyến tính ban đầu?",
+        options: [
+          "Vì chúng chỉ làm thay đổi hình thức trình bày các điều kiện ràng buộc chứ không làm thay đổi bản chất của các điều kiện đó.",
+          "Vì các phép biến đổi này luôn luôn làm tăng số chiều của không gian vectơ nghiệm.",
+          "Vì chúng loại bỏ bớt các ràng buộc mâu thuẫn trực tiếp của ma trận hệ số ban đầu.",
+          "Vì định thức của ma trận hệ số biến đổi luôn được bảo toàn bằng 1."
+        ],
+        correct: 0,
+        explanation: "Quá trình khử Gauss bám sát nguyên lý deconstruction: các phép biến đổi tương đương trên hàng chỉ bóc tách lớp vỏ trình bày của phương trình mà không làm phá vỡ đi tập nghiệm nguyên thủy. Các phép biến đổi này đều có tính thuận nghịch (khả nghịch), nghĩa là từ hệ mới luôn có thể khôi phục lại hoàn toàn hệ cũ.",
+        tip: "Thay đổi hình thức trình bày để lộ ra cấu trúc thực, bản chất điều kiện không hề đổi!"
+      },
+      {
+        id: 4,
+        type: "theory",
+        typeName: "Lý thuyết",
+        tagClass: "bg-purple-100 text-purple-800 border-purple-200",
+        score: 5,
+        text: "Cho hệ phương trình tuyến tính $Ax = b$ gồm $m$ phương trình và $n$ ẩn số. Theo định lý Kronecker-Capelli, hệ phương trình có nghiệm khi và chỉ khi nào?",
+        options: [
+          "Hạng của ma trận hệ số bằng số ẩn số, tức là $\\text{rank}(A) = n$.",
+          "Hạng của ma trận hệ số bằng hạng của ma trận hệ số mở rộng, tức là $\\text{rank}(A) = \\text{rank}([A|b])$.",
+          "Định thức của ma trận hệ số $A$ khác $0$, tức là $\\det(A) \\neq 0$.",
+          "Số phương trình bằng số ẩn số, tức là $m = n$."
+        ],
+        correct: 1,
+        explanation: "Định lý Kronecker-Capelli khẳng định: hệ phương trình tuyến tính có nghiệm khi và chỉ khi hạng của ma trận hệ số $A$ bằng hạng của ma trận mở rộng $[A|b]$. Nếu $\\text{rank}(A) < \\text{rank}([A|b])$, ma trận mở rộng chứa một hàng có dạng $[0 \\ 0 \\ \\dots \\ 0 \\ | \\ c]$ với $c \\neq 0$, tức là xuất hiện mâu thuẫn vô lý $0 = c$, làm hệ vô nghiệm.",
+        tip: "Hạng của A phải bằng hạng của ma trận ghép mở rộng [A|b] thì b mới biểu diễn tuyến tính được qua các cột của A."
+      },
+      {
+        id: 5,
+        type: "theory",
+        typeName: "Lý thuyết",
+        tagClass: "bg-purple-100 text-purple-800 border-purple-200",
+        score: 5,
+        text: "Khái niệm hạng $\\text{rank}(A)$ của ma trận hệ số thực chất biểu thị điều gì trong cấu trúc của một hệ ràng buộc tuyến tính?",
+        options: [
+          "Tổng số lượng tất cả các phương trình (kể cả các phương trình trùng lặp) có trong hệ ban đầu.",
+          "Số lượng các chiều ràng buộc độc lập tuyến tính mà hệ thống duy trì được.",
+          "Tích của các phần tử nằm trên đường chéo chính sau khi biến đổi sơ cấp.",
+          "Số lượng ẩn số tự do tối đa mà ta có thể gán giá trị tùy ý cho hệ phương trình."
+        ],
+        correct: 1,
+        explanation: "Hạng của ma trận hệ số không đơn thuần là một con số kỹ thuật. Hạng chính là số lượng chiều ràng buộc độc lập thật sự của hệ. Nếu ta có nhiều phương trình nhưng chúng phụ thuộc nhau (thừa), hạng sẽ nhỏ đi. Càng nhiều ràng buộc độc lập tuyến tính, không gian nghiệm càng bị co hẹp lại.",
+        tip: "Hạng = Số phương trình thực sự có ích (độc lập tuyến tính). Số ẩn tự do = Số ẩn - Hạng."
+      },
+
+      // === BÀI TẬP DỄ (5 CÂU) ===
+      {
+        id: 6,
+        type: "easy",
+        typeName: "Bài tập dễ",
+        tagClass: "bg-emerald-100 text-emerald-800 border-emerald-200",
+        score: 5,
+        text: "Phương trình nào dưới đây **không phải** là phương trình tuyến tính?",
+        options: [
+          "$2x - 3y + z = 10$",
+          "$x_1 + 2x_2 - 5x_3 = 0$",
+          "$3x + y - 2xy = 5$",
+          "$\\sqrt{2}x - \\pi y = e$"
+        ],
+        correct: 2,
+        explanation: "Phương trình tuyến tính là phương trình bậc nhất đối với tất cả các ẩn số và không có sự nhân nhau giữa các ẩn. Phương trình $3x + y - 2xy = 5$ có chứa số hạng tích $xy$ (bậc hai đối với nhóm ẩn), nên nó không phải là phương trình tuyến tính.",
+        tip: "Cứ thấy có $x^2$, $xy$, $\\sin(x)$, $\\sqrt{x}$ hay $\\frac{1}{x}$ thì chắc chắn KHÔNG tuyến tính."
+      },
+      {
+        id: 7,
+        type: "easy",
+        typeName: "Bài tập dễ",
+        tagClass: "bg-emerald-100 text-emerald-800 border-emerald-200",
+        score: 5,
+        text: "Giải hệ hai phương trình bậc nhất hai ẩn sau bằng phương pháp hình học (giao điểm đường thẳng):\n$$\\begin{cases} 2x + y = 5 \\\\ x - y = 1 \\end{cases}$$",
+        options: [
+          "$(x, y) = (1, 3)$",
+          "$(x, y) = (2, 1)$",
+          "$(x, y) = (3, -1)$",
+          "Hệ vô nghiệm"
+        ],
+        correct: 1,
+        explanation: "Cộng hai vế của phương trình lại ta thu được: $(2x + y) + (x - y) = 5 + 1 \\Rightarrow 3x = 6 \\Rightarrow x = 2$. Thế $x = 2$ vào phương trình thứ hai ta được $2 - y = 1 \\Rightarrow y = 1$. Điểm chung duy nhất là giao điểm của hai đường thẳng tại tọa độ $(2, 1)$.",
+        tip: "Nhẩm nhanh bằng cách cộng hai phương trình trực tiếp để triệt tiêu biến $y$!"
+      },
+      {
+        id: 8,
+        type: "easy",
+        typeName: "Bài tập dễ",
+        tagClass: "bg-emerald-100 text-emerald-800 border-emerald-200",
+        score: 5,
+        text: "Sau khi áp dụng thuật toán khử Gauss đưa ma trận mở rộng về dạng bậc thang, ta thu được kết quả:\n$$[A|b] = \\begin{bmatrix} 1 & 2 & 1 & | & 4 \\\\ 0 & 1 & -1 & | & 2 \\\\ 0 & 0 & 0 & | & 5 \\end{bmatrix}$$\nHãy đưa ra kết luận chính xác về tập nghiệm của hệ phương trình tương ứng.",
+        options: [
+          "Hệ có vô số nghiệm phụ thuộc vào một ẩn tự do $z$.",
+          "Hệ có nghiệm duy nhất vì có số dòng bằng số cột hệ số.",
+          "Hệ vô nghiệm.",
+          "Hệ có đúng hai nghiệm phân biệt."
+        ],
+        correct: 2,
+        explanation: "Ở hàng thứ 3 của ma trận bậc thang, ta có phương trình tương ứng là: $0x + 0y + 0z = 5 \\Rightarrow 0 = 5$ (vô lý). Điều này chứng tỏ ràng buộc bị mâu thuẫn nghiêm trọng, không tồn tại bất kỳ vector ẩn nào thỏa mãn đồng thời, hệ vô nghiệm.",
+        tip: "Chỉ cần nhìn thấy một dòng có dạng $[0 \\ 0 \\ \\dots \\ 0 \\ | \\ c]$ với hằng số $c \\neq 0$ thì khoanh ngay 'Vô nghiệm'."
+      },
+      {
+        id: 9,
+        type: "easy",
+        typeName: "Bài tập dễ",
+        tagClass: "bg-emerald-100 text-emerald-800 border-emerald-200",
+        score: 5,
+        text: "Tính hạng của ma trận hệ số sau bằng phép nhẩm trực giác:\n$$A = \\begin{bmatrix} 1 & -2 & 3 \\\\ 2 & -4 & 6 \\\\ -3 & 6 & -9 \\end{bmatrix}$$",
+        options: [
+          "$\\text{rank}(A) = 3$",
+          "$\\text{rank}(A) = 2$",
+          "$\\text{rank}(A) = 1$",
+          "$\\text{rank}(A) = 0$"
+        ],
+        correct: 2,
+        explanation: "Quan sát các hàng của ma trận $A$: Hàng 2 bằng 2 lần hàng 1 ($R_2 = 2R_1$); hàng 3 bằng $-3$ lần hàng 1 ($R_3 = -3R_1$). Tất cả các hàng đều là bội số phụ thuộc tuyến tính vào hàng 1. Do đó chỉ có duy nhất 1 hàng độc lập tuyến tính. Hạng của ma trận $A$ bằng 1.",
+        tip: "Nếu các hàng tỉ lệ thuận với nhau, toàn bộ ma trận chỉ có duy nhất 1 hướng độc lập $\\Rightarrow$ hạng bằng 1."
+      },
+      {
+        id: 10,
+        type: "easy",
+        typeName: "Bài tập dễ",
+        tagClass: "bg-emerald-100 text-emerald-800 border-emerald-200",
+        score: 5,
+        text: "Cho hệ phương trình thuần nhất (vế phải bằng $0$) có ma trận hệ số bậc thang thu gọn sau:\n$$\\begin{bmatrix} 1 & 0 & -2 \\\\ 0 & 1 & 3 \\\\ 0 & 0 & 0 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\end{bmatrix}$$\nCông thức nghiệm tổng quát của hệ là gì?",
+        options: [
+          "$(x, y, z) = (0, 0, 0)$",
+          "$(x, y, z) = (2z, -3z, z)$ với $z \\in \\mathbb{R}$ tùy ý.",
+          "$(x, y, z) = (-2z, 3z, z)$ với $z \\in \\mathbb{R}$ tùy ý.",
+          "Hệ phương trình này hoàn toàn vô nghiệm."
+        ],
+        correct: 1,
+        explanation: "Phương trình biểu diễn từ hệ bậc thang thu gọn: \n1) $x - 2z = 0 \\Rightarrow x = 2z$\n2) $y + 3z = 0 \\Rightarrow y = -3z$\n3) Ẩn $z$ là ẩn tự do vì cột 3 không chứa phần tử chốt cột (pivot). Đặt $z = t \\in \\mathbb{R}$, ta có nghiệm $(x, y, z) = (2t, -3t, t)$.",
+        tip: "Chuyển vế đổi dấu ẩn tự do: từ $-2z$ chuyển vế thành $+2z$, từ $+3z$ chuyển vế thành $-3z$."
+      },
+
+      // === BÀI TẬP TRUNG BÌNH (5 CÂU) ===
+      {
+        id: 11,
+        type: "medium",
+        typeName: "Bài tập trung bình",
+        tagClass: "bg-amber-100 text-amber-800 border-amber-200",
+        score: 10,
+        text: "Cho ma trận mở rộng của một hệ phương trình tuyến tính phụ thuộc tham số thực $m$:\n$$[A|b] = \\begin{bmatrix} 1 & 1 & 2 & | & 3 \\\\ 0 & 1 & -1 & | & 2 \\\\ 0 & 0 & m^2 - 4 & | & m - 2 \\end{bmatrix}$$\nTìm tất cả các giá trị thực của tham số $m$ để hệ phương trình trên **vô số nghiệm**.",
+        options: [
+          "$m = 2$ hoặc $m = -2$",
+          "$m = 2$",
+          "$m = -2$",
+          "$m \\neq 2$ và $m \\neq -2$"
+        ],
+        correct: 1,
+        explanation: "Hệ có vô số nghiệm khi dòng cuối có dạng $[0 \\ 0 \\ 0 \\ | \\ 0]$ để tạo ra ẩn tự do và không mâu thuẫn. Điều này xảy ra khi đồng thời: $m^2 - 4 = 0$ và $m - 2 = 0$. Giải hệ điều kiện: $m = \\pm 2$ và $m = 2 \\Rightarrow$ giao lại ta được $m = 2$. (Nếu $m = -2$, dòng cuối là $[0 \\ 0 \\ 0 \\ | \\ -4]$ dẫn tới hệ vô nghiệm).",
+        tip: "Hệ vô số nghiệm khi cả hệ số chốt và hệ số tự do đều triệt tiêu về 0: $m^2 - 4 = 0$ và $m - 2 = 0 \\Rightarrow m = 2$."
+      },
+      {
+        id: 12,
+        type: "medium",
+        typeName: "Bài tập trung bình",
+        tagClass: "bg-amber-100 text-amber-800 border-amber-200",
+        score: 10,
+        text: "Xét hệ phương trình tuyến tính sau:\n$$\\begin{cases} x + y + z = 6 \\\\ 2x - y + z = 3 \\\\ x + 2y - z = 3 \\end{cases}$$\nHãy tính giá trị của nghiệm duy nhất $(x, y, z)$ và tìm tổng $S = x + y + z$.",
+        options: [
+          "$S = 6$",
+          "$S = 7$",
+          "$S = 5$",
+          "$S = 9$"
+        ],
+        correct: 0,
+        explanation: "Phương trình đầu tiên là $x + y + z = 6$. Vì hệ này có nghiệm duy nhất (đã được chứng minh bằng khử Gauss ở Ví dụ 2 trong bài giảng), nghiệm đó bắt buộc phải thỏa mãn tất cả các phương trình trong hệ. Do đó, tổng của ba ẩn $x + y + z$ bắt buộc phải bằng đúng vế phải của phương trình thứ nhất, tức là bằng 6.",
+        tip: "Mẹo DuyMT: Đọc kỹ đề bài! Đề hỏi tổng $S = x + y + z$. Bản thân phương trình đầu tiên chính là biểu thức $x + y + z = 6$. Không cần giải chi tiết hệ!"
+      },
+      {
+        id: 13,
+        type: "medium",
+        typeName: "Bài tập trung bình",
+        tagClass: "bg-amber-100 text-amber-800 border-amber-200",
+        score: 10,
+        text: "Với những giá trị nào của tham số $k$ thì hệ phương trình tuyến tính sau đây có nghiệm duy nhất?\n$$\\begin{cases} kx + y = 1 \\\\ x + ky = 1 \\end{cases}$$",
+        options: [
+          "$k \\neq 1$",
+          "$k \\neq -1$",
+          "$k \\neq 1$ và $k \\neq -1$",
+          "Với mọi giá trị của $k$"
+        ],
+        correct: 2,
+        explanation: "Hệ có nghiệm duy nhất khi định thức của ma trận hệ số khác 0:\n$$\\det(A) = \\begin{vmatrix} k & 1 \\\\ 1 & k \\end{vmatrix} = k^2 - 1 \\neq 0 \\Rightarrow k \\neq \\pm 1$$",
+        tip: "Hệ 2 ẩn có nghiệm duy nhất khi các hệ số của 2 phương trình không tỉ lệ: $\\frac{k}{1} \\neq \\frac{1}{k} \\Rightarrow k^2 \\neq 1 \\Rightarrow k \\neq \\pm 1$."
+      },
+      {
+        id: 14,
+        type: "medium",
+        typeName: "Bài tập trung bình",
+        tagClass: "bg-amber-100 text-amber-800 border-amber-200",
+        score: 10,
+        text: "Tìm hạng của ma trận hệ số mở rộng sau đây:\n$$[A|b] = \\begin{bmatrix} 1 & 2 & -1 & | & 1 \\\\ 0 & 1 & 3 & | & 2 \\\\ 0 & 0 & 2 & | & 4 \\\\ 0 & 0 & 0 & | & 0 \\end{bmatrix}$$",
+        options: [
+          "$\\text{rank}([A|b]) = 4$",
+          "$\\text{rank}([A|b]) = 3$",
+          "$\\text{rank}([A|b]) = 2$",
+          "$\\text{rank}([A|b]) = 1$"
+        ],
+        correct: 1,
+        explanation: "Ma trận mở rộng đã ở sẵn dạng bậc thang. Đếm số lượng hàng khác không (hàng có chứa ít nhất một phần tử khác 0). Hàng 1, 2, 3 đều khác 0. Hàng thứ 4 là hàng không hoàn toàn (tất cả bằng 0). Vậy số hàng khác 0 là 3, hạng bằng 3.",
+        tip: "Hạng của ma trận bậc thang = Số hàng khác không. Nhìn nhanh thấy 3 hàng đầu có chứa số khác 0 $\\Rightarrow$ Hạng = 3."
+      },
+      {
+        id: 15,
+        type: "medium",
+        typeName: "Bài tập trung bình",
+        tagClass: "bg-amber-100 text-amber-800 border-amber-200",
+        score: 10,
+        text: "Một hệ phương trình tuyến tính có ma trận hệ số kích thước $4 \\times 5$ (4 hàng, 5 cột). Biết rằng hạng của ma trận hệ số $A$ bằng 3 và hệ có nghiệm. Số lượng ẩn tự do của hệ phương trình này là bao nhiêu?",
+        options: [
+          "1 ẩn tự do.",
+          "2 ẩn tự do.",
+          "3 ẩn tự do.",
+          "Chưa đủ dữ kiện để kết luận."
+        ],
+        correct: 1,
+        explanation: "Ma trận hệ số có kích thước $4 \\times 5$, chứng tỏ hệ có $n = 5$ ẩn số (số ẩn số tương ứng với số cột của ma trận hệ số $A$). Số ẩn tự do của hệ phương trình tuyến tính được tính bằng công thức: $\\text{Số ẩn tự do} = n - \\text{rank}(A) = 5 - 3 = 2$ ẩn tự do.",
+        tip: "Số ẩn tự do = Số cột - Hạng. Số ẩn chính là số cột của ma trận $A$, tức là 5 cột $\\Rightarrow 5 - 3 = 2$."
+      },
+
+      // === BÀI TẬP KHÓ (5 CÂU) ===
+      {
+        id: 16,
+        type: "hard",
+        typeName: "Bài tập khó",
+        tagClass: "bg-rose-100 text-rose-800 border-rose-200",
+        score: 15,
+        text: "Tìm điều kiện của các tham số $a, b, c$ để hệ phương trình sau đây có nghiệm:\n$$\\begin{cases} x + 2y - 3z = a \\\\ 3x - y + 2z = b \\\\ x - 5y + 8z = c \\end{cases}$$",
+        options: [
+          "$a + b + c = 0$",
+          "$2a - b + c = 0$",
+          "$2a + b - c = 0$",
+          "Hệ luôn luôn có nghiệm với mọi giá trị $a, b, c$"
+        ],
+        correct: 1,
+        explanation: "Viết ma trận mở rộng và thực hiện biến đổi sơ cấp đưa về dạng bậc thang:\n$$[A|b] = \\begin{bmatrix} 1 & 2 & -3 & | & a \\\\ 3 & -1 & 2 & | & b \\\\ 1 & -5 & 8 & | & c \\end{bmatrix}$$\nThực hiện phép khử hàng: $R_2 \\leftarrow R_2 - 3R_1$ và $R_3 \\leftarrow R_3 - R_1$:\n$$\\rightarrow \\begin{bmatrix} 1 & 2 & -3 & | & a \\\\ 0 & -7 & 11 & | & b - 3a \\\\ 0 & -7 & 11 & | & c - a \\end{bmatrix}$$\nTiếp tục khử hàng 3: $R_3 \\leftarrow R_3 - R_2$:\n$$\\rightarrow \\begin{bmatrix} 1 & 2 & -3 & | & a \\\\ 0 & -7 & 11 & | & b - 3a \\\\ 0 & 0 & 0 & | & (c - a) - (b - 3a) \\end{bmatrix}$$\nHệ có nghiệm khi hàng cuối không mâu thuẫn, tức là: $(c - a) - (b - 3a) = 0 \\Rightarrow 2a - b + c = 0$.",
+        tip: "Phân tích mối quan hệ giữa các hàng của ma trận $A$: Dễ dàng nhận ra hàng 3 bằng $2$ lần hàng 1 trừ đi hàng 2 ($R_3 = 2R_1 - R_2$). Do đó, để vế phải tương thích, ta cũng phải có quan hệ tương tự: $c = 2a - b \\Rightarrow 2a - b + c = 0$!"
+      },
+      {
+        id: 17,
+        type: "hard",
+        typeName: "Bài tập khó",
+        tagClass: "bg-rose-100 text-rose-800 border-rose-200",
+        score: 15,
+        text: "Cho hệ phương trình tuyến tính $Ax = b$ trong đó $A$ là ma trận vuông cấp $n$. Biết rằng hệ phương trình thuần nhất liên kết $Ax = 0$ chỉ có duy nhất một nghiệm tầm thường là $x = 0$. Phát biểu nào sau đây là **sai**?",
+        options: [
+          "Hệ phương trình $Ax = b$ luôn luôn có nghiệm duy nhất với mọi vector cột $b$.",
+          "Hạng của ma trận $A$ bằng $n$, tức là $\\text{rank}(A) = n$.",
+          "Ma trận $A$ là ma trận suy biến, có định thức $\\det(A) = 0$.",
+          "Ma trận $A$ là ma trận khả nghịch, tồn tại ma trận nghịch đảo $A^{-1}$."
+        ],
+        correct: 2,
+        explanation: "Hệ thuần nhất $Ax=0$ có nghiệm duy nhất tầm thường $\\Leftrightarrow A$ khả nghịch $\\Leftrightarrow \\det(A) \\neq 0 \\Leftrightarrow \\text{rank}(A)=n$. Do đó khẳng định 'Ma trận $A$ là ma trận suy biến (tức $\\det(A)=0$)' là khẳng định SAI.",
+        tip: "Hãy nhớ chuỗi tương đương cực kỳ quan trọng của ma trận vuông: Nghiệm thuần nhất duy nhất $\\Leftrightarrow$ Khả nghịch $\\Leftrightarrow \\det \\neq 0 \\Leftrightarrow$ Nghiệm duy nhất với mọi $b$."
+      },
+      {
+        id: 18,
+        type: "hard",
+        typeName: "Bài tập khó",
+        tagClass: "bg-rose-100 text-rose-800 border-rose-200",
+        score: 15,
+        text: "Tìm tất cả các giá trị thực của tham số $m$ để hệ phương trình tuyến tính sau đây có nghiệm:\n$$\\begin{cases} x - 2y + z = 1 \\\\ 2x + y - z = 2 \\\\ x + 3y - 2z = m \\end{cases}$$",
+        options: [
+          "$m = 1$",
+          "$m = -1$",
+          "$m = 0$",
+          "Hệ luôn có nghiệm với mọi $m \\in \\mathbb{R}$"
+        ],
+        correct: 0,
+        explanation: "Biến đổi ma trận mở rộng về dạng bậc thang:\n$$[A|b] = \\begin{bmatrix} 1 & -2 & 1 & | & 1 \\\\ 2 & 1 & -1 & | & 2 \\\\ 1 & 3 & -2 & | & m \\end{bmatrix}$$\nKhử hàng 2 và 3: $R_2 \\leftarrow R_2 - 2R_1$, $R_3 \\leftarrow R_3 - R_1$:\n$$\\rightarrow \\begin{bmatrix} 1 & -2 & 1 & | & 1 \\\\ 0 & 5 & -3 & | & 0 \\\\ 0 & 5 & -3 & | & m - 1 \\end{bmatrix}$$\nKhử tiếp hàng 3: $R_3 \\leftarrow R_3 - R_2$:\n$$\\rightarrow \\begin{bmatrix} 1 & -2 & 1 & | & 1 \\\\ 0 & 5 & -3 & | & 0 \\\\ 0 & 0 & 0 & | & m - 1 \\end{bmatrix}$$\nĐể hệ có nghiệm (không mâu thuẫn) thì yêu cầu hạng $A$ bằng hạng $[A|b]$: $m - 1 = 0 \\Rightarrow m = 1$.",
+        tip: "Nhận xét nhanh mối quan hệ phụ thuộc tuyến tính: Hàng 3 của ma trận hệ số bằng hàng 2 trừ đi hàng 1 ($R_3 = R_2 - R_1$). Để hệ tương thích có nghiệm, vế phải cũng phải thỏa mãn: $m = 2 - 1 \\Rightarrow m = 1$."
+      },
+      {
+        id: 19,
+        type: "hard",
+        typeName: "Bài tập khó",
+        tagClass: "bg-rose-100 text-rose-800 border-rose-200",
+        score: 15,
+        text: "Cho không gian các dòng của ma trận hệ số $A$ có chiều bằng 3. Ma trận $A$ có kích thước $5 \\times 6$. Khi giải hệ phương trình tuyến tính không thuần nhất $Ax = b$ (với $b \\neq 0$), người ta thấy rằng hệ này có nghiệm. Hỏi không gian nghiệm của hệ phương trình tuyến tính thuần nhất liên kết $Ax = 0$ có số chiều bằng bao nhiêu?",
+        options: [
+          "Chiều bằng 3.",
+          "Chiều bằng 2.",
+          "Chiều bằng 1.",
+          "Không xác định được vì chưa có các phần tử cụ thể."
+        ],
+        correct: 0,
+        explanation: "Chiều của không gian các dòng của ma trận $A$ chính là bằng hạng của ma trận $A$, tức là $\\text{rank}(A) = 3$. Hệ phương trình có số ẩn số $n = 6$ (bằng số cột của ma trận hệ số $A$). Số chiều của không gian nghiệm của hệ thuần nhất liên kết $Ax = 0$ (được gọi là số khuyết của ma trận, hay nullity) được xác định bằng công thức: $\\text{dim}(\\text{Ker}(A)) = n - \\text{rank}(A) = 6 - 3 = 3$.",
+        tip: "Chiều của không gian dòng = Hạng của ma trận. Số chiều không gian nghiệm thuần nhất = Số ẩn - Hạng. Áp dụng ngay: $6 - 3 = 3$."
+      },
+      {
+        id: 20,
+        type: "hard",
+        typeName: "Bài tập khó",
+        tagClass: "bg-rose-100 text-rose-800 border-rose-200",
+        score: 15,
+        text: "Xét hệ phương trình tuyến tính gồm $n$ phương trình và $n$ ẩn số có ma trận hệ số $A$ thỏa mãn điều kiện $A^2 - 3A + 2I = 0$ (với $I$ là ma trận đơn vị và $0$ là ma trận không). Phát biểu nào sau đây về nghiệm của hệ phương trình $Ax = b$ luôn luôn **đúng**?",
+        options: [
+          "Hệ phương trình có vô số nghiệm với mọi vectơ vế phải $b$.",
+          "Hệ phương trình luôn vô nghiệm với mọi vectơ vế phải $b \\neq 0$.",
+          "Hệ phương trình luôn có nghiệm duy nhất với mọi vectơ vế phải $b$.",
+          "Tập nghiệm của hệ phương trình phụ thuộc vào việc hạng của $A$ bằng $n-1$ hay không."
+        ],
+        correct: 2,
+        explanation: "Từ giả thiết: $A^2 - 3A + 2I = 0 \\Rightarrow A(3I - A) = 2I \\Rightarrow A \\left[ \\frac{1}{2}(3I - A) \\right] = I$. Điều này chứng minh ma trận $A$ khả nghịch và có ma trận nghịch đảo là $A^{-1} = \\frac{1}{2}(3I - A)$. Vì $A$ khả nghịch, hệ phương trình $Ax = b$ luôn có nghiệm duy nhất $x = A^{-1}b$ với mọi vectơ vế phải $b$.",
+        tip: "Biến đổi để tìm ma trận nghịch đảo: Nếu cô lập được ma trận đơn vị $I$ về một vế dạng $A \\cdot B = I$, thì chắc chắn $A$ khả nghịch, tức là hệ luôn có nghiệm duy nhất!"
+      }
+    ];
+
+    // --- BIẾN TRẠNG THÁI TOÀN CỤC ---
+    let currentIdx = 0;
+    let userAnswers = Array(questions.length).fill(null); // Lưu index đáp án đã chọn
+    let filterType = 'all'; // 'all', 'theory', 'easy', 'medium', 'hard'
+    let filteredQuestions = [...questions];
+    let startTime = Date.now();
+    let timerInterval = null;
+
+    // --- KHỞI CHẠY HỆ THỐNG ---
+    window.addEventListener('DOMContentLoaded', () => {
+      startTimer();
+      renderQuestionGrid();
+      loadQuestion(0);
+      updateStats();
+
+      // Sự kiện nút điều hướng
+      document.getElementById('btn-prev').addEventListener('click', prevQuestion);
+      document.getElementById('btn-next').addEventListener('click', nextQuestion);
+      document.getElementById('btn-reset').addEventListener('click', confirmReset);
+      document.getElementById('btn-download').addEventListener('click', downloadHTML);
+    });
+
+    // --- HÀM TIMER ---
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      startTime = Date.now();
+      timerInterval = setInterval(() => {
+        const diff = Date.now() - startTime;
+        const hrs = String(Math.floor(diff / 3600000)).padStart(2, '0');
+        const mins = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+        const secs = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+        document.getElementById('timer').innerText = `${hrs}:${mins}:${secs}`;
+      }, 1000);
+    }
+
+    // --- HIỂN THỊ DANH SÁCH BẢN ĐỒ CÂU HỎI (Bên Trái) ---
+    function renderQuestionGrid() {
+      const grid = document.getElementById('question-grid');
+      grid.innerHTML = '';
+
+      filteredQuestions.forEach((q, fIdx) => {
+        // Tìm vị trí gốc trong mảng questions
+        const originalIdx = questions.findIndex(orig => orig.id === q.id);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `w-10 h-10 rounded-lg text-xs font-bold font-mono-tech transition-all flex items-center justify-center border `;
+        btn.innerText = String(originalIdx + 1).padStart(2, '0');
+
+        // Định dạng màu sắc dựa vào trạng thái trả lời
+        const ans = userAnswers[originalIdx];
+        const isCurrent = originalIdx === questions.findIndex(orig => orig.id === filteredQuestions[currentIdx].id);
+
+        if (ans !== null) {
+          const isCorrect = ans === q.correct;
+          if (isCorrect) {
+            btn.className += ' bg-emerald-500 text-white border-emerald-600 shadow-sm ';
+          } else {
+            btn.className += ' bg-rose-500 text-white border-rose-600 shadow-sm ';
+          }
+        } else {
+          btn.className += ' bg-white text-slate-700 border-slate-200 hover:bg-slate-50 ';
+        }
+
+        if (isCurrent) {
+          btn.className += ' ring-4 ring-indigo-500/40 ring-offset-1 border-indigo-500 scale-110 ';
+        }
+
+        btn.onclick = () => {
+          const newIdx = filteredQuestions.findIndex(orig => orig.id === q.id);
+          loadQuestion(newIdx);
+        };
+
+        grid.appendChild(btn);
+      });
+    }
+
+    // --- LỌC CÂU HỎI ---
+    function filterQuestions(type) {
+      filterType = type;
+      
+      // Reset active class của filter buttons
+      ['all', 'theory', 'easy', 'medium', 'hard'].forEach(t => {
+        const btn = document.getElementById(`btn-filter-${t}`);
+        if (t === type) {
+          btn.className = "py-1 px-1.5 rounded bg-slate-900 text-white shadow-sm font-mono-tech border border-transparent";
+        } else {
+          btn.className = "py-1 px-1.5 rounded bg-slate-50 text-slate-600 hover:bg-slate-100 font-mono-tech border border-slate-200";
+        }
+      });
+
+      if (type === 'all') {
+        filteredQuestions = [...questions];
+      } else {
+        filteredQuestions = questions.filter(q => q.type === type);
+      }
+
+      currentIdx = 0;
+      if (filteredQuestions.length > 0) {
+        loadQuestion(0);
+      } else {
+        alert("Không tìm thấy câu hỏi tương ứng!");
+      }
+      renderQuestionGrid();
+    }
+
+    // --- TẢI CÂU HỎI LÊN GIAO DIỆN CHÍNH ---
+    function loadQuestion(idx) {
+      if (filteredQuestions.length === 0) return;
+      currentIdx = idx;
+      const q = filteredQuestions[currentIdx];
+      const originalIdx = questions.findIndex(orig => orig.id === q.id);
+
+      // Cập nhật thông tin tiêu đề
+      document.getElementById('current-question-index').innerText = `CÂU ${String(originalIdx + 1).padStart(2, '0')}`;
+      
+      const tagSpan = document.getElementById('current-question-tag');
+      tagSpan.innerText = q.typeName;
+      tagSpan.className = `px-2.5 py-1 text-xs font-extrabold rounded-md uppercase ${q.tagClass}`;
+
+      document.getElementById('question-score-tag').innerText = `+${q.score} Điểm`;
+      document.getElementById('question-counter').innerText = `${currentIdx + 1} trong số ${filteredQuestions.length}`;
+
+      // Chèn nội dung câu hỏi
+      document.getElementById('question-text').innerHTML = formatQuestionText(q.text);
+
+      // Render danh sách đáp án
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const savedAns = userAnswers[originalIdx];
+
+      q.options.forEach((opt, oIdx) => {
+        const btn = document.createElement('button');
+        btn.className = `w-full text-left p-4 rounded-xl border transition-all duration-200 flex items-start gap-3 group relative overflow-hidden `;
+        
+        // Trạng thái nếu đã làm câu này
+        if (savedAns !== null) {
+          btn.disabled = true;
+          if (oIdx === q.correct) {
+            // Đáp án đúng luôn hiện màu xanh lá
+            btn.className += ' bg-emerald-50 border-emerald-300 text-emerald-900 shadow-sm ';
+            btn.innerHTML = `<span class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold font-mono-tech">${letters[oIdx]}</span>
+                             <span class="text-sm font-medium leading-relaxed">${formatQuestionText(opt)}</span>
+                             <i class="fa-solid fa-circle-check text-emerald-600 text-lg ml-auto self-center"></i>`;
+          } else if (oIdx === savedAns) {
+            // Nếu người dùng chọn sai thì hiện màu đỏ rực
+            btn.className += ' bg-rose-50 border-rose-300 text-rose-900 shadow-sm ';
+            btn.innerHTML = `<span class="flex-shrink-0 w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs font-bold font-mono-tech">${letters[oIdx]}</span>
+                             <span class="text-sm font-medium leading-relaxed">${formatQuestionText(opt)}</span>
+                             <i class="fa-solid fa-circle-xmark text-rose-600 text-lg ml-auto self-center"></i>`;
+          } else {
+            // Các đáp án sai khác mờ đi
+            btn.className += ' bg-slate-50/50 border-slate-100 text-slate-400 ';
+            btn.innerHTML = `<span class="flex-shrink-0 w-6 h-6 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-xs font-bold font-mono-tech">${letters[oIdx]}</span>
+                             <span class="text-sm font-medium leading-relaxed">${formatQuestionText(opt)}</span>`;
+          }
+        } else {
+          // Trạng thái chưa trả lời
+          btn.className += ' bg-white hover:bg-slate-50 border-slate-200 hover:border-slate-300 hover:shadow-sm text-slate-700 ';
+          btn.innerHTML = `<span class="flex-shrink-0 w-6 h-6 rounded-full bg-slate-100 group-hover:bg-indigo-100 group-hover:text-indigo-700 text-slate-500 flex items-center justify-center text-xs font-bold font-mono-tech transition-colors">${letters[oIdx]}</span>
+                           <span class="text-sm font-medium leading-relaxed">${formatQuestionText(opt)}</span>`;
+          
+          btn.onclick = () => selectAnswer(oIdx);
+        }
+
+        optionsContainer.appendChild(btn);
+      });
+
+      // Render Lời giải và mẹo giải nhanh
+      const explanationBlock = document.getElementById('explanation-block');
+      if (savedAns !== null) {
+        explanationBlock.classList.remove('hidden');
+        document.getElementById('correct-answer-letter').innerText = letters[q.correct];
+        document.getElementById('explanation-text').innerHTML = formatQuestionText(q.explanation);
+        document.getElementById('quick-tip-text').innerHTML = formatQuestionText(q.tip);
+      } else {
+        explanationBlock.classList.add('hidden');
+      }
+
+      // Nút điều hướng
+      document.getElementById('btn-prev').disabled = currentIdx === 0;
+      
+      // Nếu là câu cuối thì ghi Hoàn thành thay vì Câu tiếp
+      const nextBtn = document.getElementById('btn-next');
+      if (currentIdx === filteredQuestions.length - 1) {
+        nextBtn.innerHTML = `Hoàn thành <i class="fa-solid fa-flag-checkered"></i>`;
+        nextBtn.className = "px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-lg shadow-sm shadow-emerald-100 transition-colors flex items-center gap-2";
+      } else {
+        nextBtn.innerHTML = `Câu Tiếp <i class="fa-solid fa-chevron-right"></i>`;
+        nextBtn.className = "px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-lg shadow-sm shadow-indigo-100 transition-colors flex items-center gap-2";
+      }
+
+      // Kích hoạt MathJax cập nhật lại toán học
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
+
+      // Đồng bộ hóa danh sách chỉ số bên trái
+      renderQuestionGrid();
+    }
+
+    // --- HỖ TRỢ HIỂN THỊ MATHJAX ---
+    function formatQuestionText(text) {
+      // Đảm bảo xuống dòng được tôn trọng trong render HTML thông thường
+      return text.replace(/\n/g, '<br>');
+    }
+
+    // --- CHỌN ĐÁP ÁN ---
+    function selectAnswer(optIdx) {
+      const q = filteredQuestions[currentIdx];
+      const originalIdx = questions.findIndex(orig => orig.id === q.id);
+
+      if (userAnswers[originalIdx] !== null) return; // Không cho chọn lại
+
+      userAnswers[originalIdx] = optIdx;
+      
+      // Cập nhật thống kê & giao diện
+      updateStats();
+      loadQuestion(currentIdx);
+
+      // Hiệu ứng rung lắc nhẹ nếu chọn sai
+      if (optIdx !== q.correct) {
+        const card = document.getElementById('question-card');
+        card.classList.add('animate-bounce');
+        setTimeout(() => {
+          card.classList.remove('animate-bounce');
+        }, 800);
+      }
+
+      // Kiểm tra xem đã hoàn thành toàn bộ chưa
+      checkAutoFinish();
+    }
+
+    // --- CẬP NHẬT THỐNG KÊ (DASHBOARD) ---
+    function updateStats() {
+      let totalSolved = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+
+      questions.forEach((q, idx) => {
+        const ans = userAnswers[idx];
+        if (ans !== null) {
+          totalSolved++;
+          if (ans === q.correct) {
+            correctCount++;
+          } else {
+            wrongCount++;
+          }
+        }
+      });
+
+      const accuracy = totalSolved > 0 ? Math.round((correctCount / totalSolved) * 100) : 0;
+
+      document.getElementById('stats-correct').innerText = `${correctCount}/${questions.length}`;
+      document.getElementById('stats-wrong').innerText = `${wrongCount}/${questions.length}`;
+      document.getElementById('stats-accuracy').innerText = `${accuracy}%`;
+      
+      document.getElementById('progress-text').innerText = `Đã làm ${totalSolved}/${questions.length}`;
+      document.getElementById('progress-bar').style.width = `${(totalSolved / questions.length) * 100}%`;
+    }
+
+    // --- ĐIỀU HƯỚNG ---
+    function prevQuestion() {
+      if (currentIdx > 0) {
+        loadQuestion(currentIdx - 1);
+      }
+    }
+
+    function nextQuestion() {
+      if (currentIdx < filteredQuestions.length - 1) {
+        loadQuestion(currentIdx + 1);
+      } else {
+        // Nếu nhấn Câu tiếp ở câu cuối -> trigger kiểm tra hoàn tất
+        showFinishModal();
+      }
+    }
+
+    // --- KIỂM TRA TỰ ĐỘNG HOÀN THÀNH ---
+    function checkAutoFinish() {
+      const isAllSolved = userAnswers.every(ans => ans !== null);
+      if (isAllSolved) {
+        setTimeout(() => {
+          showFinishModal();
+        }, 1500);
+      }
+    }
+
+    // --- HIỆN MODAL HOÀN THÀNH ---
+    function showFinishModal() {
+      let correctCount = 0;
+      questions.forEach((q, idx) => {
+        if (userAnswers[idx] === q.correct) correctCount++;
+      });
+      const accuracy = Math.round((correctCount / questions.length) * 100);
+
+      document.getElementById('modal-accuracy').innerText = `${accuracy}%`;
+      document.getElementById('modal-correct').innerText = `${correctCount} / ${questions.length}`;
+      document.getElementById('modal-time').innerText = document.getElementById('timer').innerText;
+
+      // Đánh giá dựa trên kết quả
+      let evalText = "";
+      if (accuracy === 100) {
+        evalText = `"Xuất sắc! Bạn đã lĩnh hội trọn vẹn tinh thần DUYMT, bóc tách tất cả ràng buộc để nhìn thấu cấu trúc hoàn hảo của không gian!"`;
+      } else if (accuracy >= 80) {
+        evalText = `"Rất tốt! Cấu trúc siêu phẳng và thuật toán khử Gauss không thể làm khó được bạn. Chỉ một vài chi tiết nhỏ cần mài giũa thêm."`;
+      } else if (accuracy >= 50) {
+        evalText = `"Khá ổn! Tuy nhiên hãy đọc kỹ lại 'những điều công thức đang che giấu'. Đừng sa đà vào tính toán máy móc mà quên đi bản chất hình học."`;
+      } else {
+        evalText = `"Đừng nản lòng! 'Giải hệ phương trình là tìm điểm chung còn sống sót'. Hãy nhấn Làm lại từ đầu để rèn luyện tư duy deconstruction từ gốc cùng thầy DuyMT."`;
+      }
+      document.getElementById('modal-evaluation').innerText = evalText;
+
+      document.getElementById('modal-finish').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('modal-finish').classList.add('hidden');
+    }
+
+    // --- KHỞI ĐỘNG LẠI ---
+    function confirmReset() {
+      if (confirm("Bạn có chắc chắn muốn làm lại từ đầu không? Toàn bộ kết quả hiện tại sẽ bị xóa.")) {
+        restartExam();
+      }
+    }
+
+    function restartExam() {
+      userAnswers = Array(questions.length).fill(null);
+      currentIdx = 0;
+      filterType = 'all';
+      filteredQuestions = [...questions];
+      
+      // Reset filter buttons
+      filterQuestions('all');
+      
+      startTimer();
+      updateStats();
+      loadQuestion(0);
+      closeModal();
+    }
+
+    // --- TẢI FILE HTML TỰ ĐỘNG ---
+    function downloadHTML() {
+      const currentHtml = document.documentElement.outerHTML;
+      const blob = new Blob([currentHtml], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Trac_Nghiem_He_Phuong_Trinh_Tuyen_Tinh_DuyMT.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+</body>
+</html>
